@@ -1,0 +1,48 @@
+{% extends "player_register/base.html"%}
+{% block content %}
+<p> Player List<form action="{% url 'menu' %}" method="POST" class = "d-inline">
+    {% csrf_token %}
+    <button class= d-inline class="btn-outline-success far fa-back fa-lg text-danger">
+        go back
+    </button> </p>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Height</td>
+            <td>Weight</td>
+            <td>Position</td>
+            <td>Team</td>
+            <td>
+                <a href="{% url 'player_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New Player
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for player in player_list %}
+        <tr>
+            <td>{{player.name}}</td>
+            <td>{{player.age}}</td>
+            <td>{{player.height}}</td>
+            <td>{{player.weight}}</td>
+            <td>{{player.position}}</td>
+            <td>{{player.team}}</td>
+            <td>
+                <a href="{% url 'player_update' player.id %}" class="btn text secondary px-0" >
+                    <i class="far fa-edit fat-lg"></i>
+                </a>
+                <form action="{% url 'player_delete' player.id %}" method="POST" class = "d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

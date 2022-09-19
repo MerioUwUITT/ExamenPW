@@ -1,0 +1,22 @@
+{% extends "player_register/base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<p class="lead">Stadium Register</p>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+{{form.stadium|as_crispy_field}}
+{{form.state|as_crispy_field}}
+
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fa-solid fa-floppy-disk"></i>
+                Submit</button>
+        </div> 
+        <div class="col-md-4">
+        <a href="{% url 'stadium_list'%}" class="btn btn-secondary btn-block btn-lg">
+            <i class="fas fa-stream"></i> Go to List 
+        </a>
+    </div>
+    </form>
+{% endblock content %}

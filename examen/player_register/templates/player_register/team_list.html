@@ -1,0 +1,47 @@
+{%extends "player_register/base.html"%}
+{%block content%}
+<p> Team List <form action="{% url 'menu' %}" method="POST" class = "d-inline">
+    {% csrf_token %}
+    <button class= d-inline class="btn-outline-success far fa-back fa-lg text-danger">
+        go back
+    </button></p>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>City</td>
+            <td>
+                <a href="{% url 'team_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New Team
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for team in team_list %}
+        <tr>
+            <td>{{team.team|add:" de "}}</td>
+            <td>{{team.city}}</td>
+            <td>
+                <a href="{% url 'team_update' team.id %}" class="btn text secondary px-0" >
+                    <i class="far fa-edit fat-lg"></i>
+                </a>
+                <form action="{% url 'team_delete' team.id %}" method="POST" class = "d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+                <form action="" method="POST" class = "d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Add Player
+                    </button> 
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endblock content %}
